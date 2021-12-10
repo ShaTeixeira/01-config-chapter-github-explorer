@@ -1,6 +1,10 @@
+import { useState, useEffect } from 'react';
 import { RepositoryItem } from "./RepositoryItem";
 
 import '../styles/repositories.scss';
+
+// https://api.github.com/users/ShaTeixeira/repos
+
 
 const repository = {
     name: 'unform',
@@ -10,8 +14,17 @@ const repository = {
 
 
 export function RepositoryList(){
+    const [respositories, setRepositories] = useState([]);
+
+    // qual funcao executar, quando executar dependencias que podem mudar 
+    useEffect(() => {
+        fetch('https://api.github.com/users/ShaTeixeira/repos')
+        .then(response => response.json())
+        .then(data => console.log(data))
+    }, []);
+
     return(
-        <section>
+        <section className="repository-list">
             <h1>Lista de Repositórios</h1>
 
             <ul>
